@@ -7,6 +7,8 @@ bin_dir="/usr/local/bin"
 data_dir="/var/run/tezos"
 node_dir="$data_dir/node"
 client_dir="$data_dir/client"
+node="$bin_dir/tezos-node"
+node_data_dir="$node_dir/data"
 
 printf "Writing custom configuration for private node\n"
 # why hard-code this file ?
@@ -20,7 +22,11 @@ cat << EOF > ${node_dir}/data/config.json
   "network": "$TEZOS_NETWORK",
   "rpc":
     { "listen-addrs": [ ":8732" ],
-      "acl": [ { "address": ":8732", "blacklist": [] } ] },
+      "acl": [ 
+        { "address": ":8732", "blacklist": ["GET/version"] },
+        { "address": ":8732", "blacklist": [] } 
+      ] 
+    },
   "p2p":
     { "limits":
         { "connection-timeout": 10, "min-connections": 25,
@@ -31,3 +37,10 @@ cat << EOF > ${node_dir}/data/config.json
 EOF
 
 cat ${node_dir}/data/config.json
+
+# Generate a new identity if not present
+if [ ! -f "$node_data_dir/identity.json" ]; then
+    echo "Generating a new node identity..."
+    exec "${node}" identity generate "${IDENTITY_POW:-26}". \
+            --data-dir "$node_data_dir"
+fi
