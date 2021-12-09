@@ -23,7 +23,7 @@ cat << EOF > ${node_dir}/data/config.json
   "rpc":
     { "listen-addrs": [ ":8732" ],
       "acl": [ 
-        { "address": ":8732", "blacklist": ["GET/chains/main/is_bootstrapped"] },
+        { "address": "0.0.0.0:8732", "blacklist": ["GET /chains/main/is_bootstrapped"] },
         { "address": ":8732", "blacklist": [] } 
       ] 
     },
