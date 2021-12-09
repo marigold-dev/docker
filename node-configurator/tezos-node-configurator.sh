@@ -21,11 +21,12 @@ cat << EOF > ${node_dir}/data/config.json
 { "data-dir": "/var/run/tezos/node/data",
   "network": "$TEZOS_NETWORK",
   "rpc":
-    { "listen-addrs": [ ":8732" ],
-      "acl": [ 
-        { "address": "0.0.0.0:8732", "blacklist": ["GET /chains/main/is_bootstrapped"] },
-        { "address": ":8732", "blacklist": [] } 
-      ] 
+    {
+      "listen-addrs": [ ":8732", "0.0.0.0:8732" ],
+      "acl":
+        [ { "address": ":8732", "blacklist": ["GET /chains/**"] },
+          { "address": "0.0.0.0:8732", "blacklist": ["GET /chains/**"] } 
+        ]
     },
   "p2p":
     { "limits":
