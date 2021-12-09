@@ -10,7 +10,7 @@ client_dir="$data_dir/client"
 node="$bin_dir/tezos-node"
 node_data_dir="$node_dir/data"
 
-printf "Writing custom configuration for private node\n"
+echo "Writing custom configuration for public node\n"
 # why hard-code this file ?
 # Reason 1: we could regenerate it from scratch with cli but it requires doing tezos-node config init or tezos-node config reset, depending on whether this file is already here
 # Reason 2: the --connections parameter automatically puts the number of minimal connections to half that of expected connections, resulting in logs spewing "Not enough connections (2)" all the time. Hard-coding the config file solves this.
@@ -23,7 +23,7 @@ cat << EOF > config.json
   "rpc":
     { "listen-addrs": [ ":8732" ],
       "acl": [ 
-        { "address": ":8732", "blacklist": ["GET/version"] },
+        { "address": ":8732", "blacklist": ["GET/chains/main/is_bootstrapped"] },
         { "address": ":8732", "blacklist": [] } 
       ] 
     },
