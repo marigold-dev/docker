@@ -17,7 +17,7 @@ printf "Writing custom configuration for private node\n"
 
 rm -rvf ${node_dir}/data/config.json
 mkdir -p ${node_dir}/data
-cat << EOF > ${node_dir}/data/config.json
+cat << EOF > config.json
 { "data-dir": "/var/run/tezos/node/data",
   "network": "$TEZOS_NETWORK",
   "rpc":
