@@ -24,8 +24,17 @@ cat << EOF > ${node_dir}/data/config.json
     {
       "listen-addrs": [ ":8732", "0.0.0.0:8732" ],
       "acl":
-        [ { "address": ":8732", "blacklist": ["GET /chains/**"] },
-          { "address": "0.0.0.0:8732", "blacklist": ["GET /chains/**"] } 
+        [ { "address": ":8732", "blacklist": [] },
+          { "address": "0.0.0.0:8732", "blacklist": [
+            "POST /injection/**",
+            "GET /network/**",
+            "GET /workers/**",
+            "GET /worker/**",
+            "GET /stats/**",
+            "GET /config/**",
+            "GET /chains/main/blocks/[0-9A-Za-z]+/helpers/(baking|endorsing)_rights",
+            "GET /helpers/(baking|endorsing)_rights",
+          ] } 
         ]
     },
   "p2p":
