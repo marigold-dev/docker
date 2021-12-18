@@ -33,7 +33,7 @@ cat << EOF > ${node_dir}/data/config.json
             "GET /stats/**",
             "GET /config/**",
             "GET /chains/main/blocks/[0-9A-Za-z]+/helpers/(baking|endorsing)_rights",
-            "GET /helpers/(baking|endorsing)_rights",
+            "GET /helpers/(baking|endorsing)_rights"
           ] } 
         ]
     },
