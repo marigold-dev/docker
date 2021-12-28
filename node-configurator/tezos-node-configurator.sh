@@ -42,7 +42,7 @@ cat << EOF > ${node_dir}/data/config.json
         { "connection-timeout": 10, "min-connections": 25,
           "max-connections": 75, "max_known_points": [ 400, 300 ],
           "max_known_peer_ids": [ 400, 300 ] } },
-  "shell": { "chain_validator": { "bootstrap_threshold": 1 },
+  "shell": { "chain_validator": { "bootstrap_threshold": 4 },
              "history_mode": "$HISTORY_MODE" } }
 EOF
 
