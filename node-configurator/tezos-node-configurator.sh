@@ -39,9 +39,14 @@ cat << EOF > ${node_dir}/data/config.json
     },
   "p2p":
     { "limits":
-        { "connection-timeout": 10, "min-connections": 25,
-          "max-connections": 75, "max_known_points": [ 400, 300 ],
-          "max_known_peer_ids": [ 400, 300 ] } },
+        { 
+          "connection-timeout": 10, 
+          "min-connections": 50,
+          "max-connections": 150,
+          "max_known_points": [ 800, 600 ],
+          "max_known_peer_ids": [ 800, 600 ]
+        } 
+    },
   "shell": { "chain_validator": { "synchronisation_threshold": 4 },
              "history_mode": "$HISTORY_MODE" } }
 EOF
