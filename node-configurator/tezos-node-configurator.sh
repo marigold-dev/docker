@@ -26,7 +26,8 @@ cat << EOF > ${node_dir}/data/config.json
       "acl":
         [ { "address": ":8732", "blacklist": [] },
           { "address": "0.0.0.0:8732", "blacklist": [
-            "POST /injection/**",
+            "POST /injection/block",
+            "POST /injection/protocol",
             "GET /network/**",
             "GET /workers/**",
             "GET /worker/**",
