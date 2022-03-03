@@ -23,6 +23,12 @@ cat << EOF > ${node_dir}/data/config.json
   "rpc":
     {
       "listen-addrs": [ ":8732", "0.0.0.0:8732" ],
+      "cors-origin": [
+          "*"
+      ],
+      "cors-headers": [
+          "Content-Type"
+      ],
       "acl":
         [ { "address": ":8732", "blacklist": [] },
           { "address": "0.0.0.0:8732", "blacklist": [
