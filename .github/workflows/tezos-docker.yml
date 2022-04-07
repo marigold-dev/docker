@@ -1,10 +1,16 @@
 name: Tezos Docker CI
 
 on:
-  push:
-    branches:
-      - 'main'
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      profile:
+        required: true
+        default: 'dev'
+        description: 'dev | master | static'
+      version:
+        required: true
+        default: 'master'
+        description: 'commit or branch from Tezos'
 
 jobs:
   docker:
@@ -23,44 +29,19 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push node configurator
-        id: docker_build_node_conf
+      - name: Build and push tezos
+        id: docker_build_tezos
         uses: docker/build-push-action@v2
         with:
-          context: ./node-configurator
+          context: ./tezos
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          # Only push if on main branch
-          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+          build-args: |
+            PROFILE=${{ github.event.inputs.profile }}
+            TEZOS_VERSION=${{ github.event.inputs.version }}
+          push: true
           tags: |
-            ghcr.io/marigold-dev/tezos-node-configurator:latest
-            ghcr.io/marigold-dev/tezos-node-configurator:${{ github.sha }}
+            ghcr.io/marigold-dev/tezos:${{ github.event.inputs.profile }}-${{ github.event.inputs.version }}-latest
+            ghcr.io/marigold-dev/tezos:${{ github.sha }}
 
-      - name: Build and push snapshot downloader
-        id: docker_build_snapshot_dl
-        uses: docker/build-push-action@v2
-        with:
-          context: ./snapshot-downloader
-          platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          # Only push if on main branch
-          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-          tags: |
-            ghcr.io/marigold-dev/tezos-snapshot-downloader:latest
-            ghcr.io/marigold-dev/tezos-snapshot-downloader:${{ github.sha }}
-
-      - name: Build and push node bootstrap
-        id: docker_build_node_bootstrap_dl
-        uses: docker/build-push-action@v2
-        with:
-          context: ./node-bootstrap
-          platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          # Only push if on main branch
-          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-          tags: |
-            ghcr.io/marigold-dev/tezos-node-bootstrap:latest
-            ghcr.io/marigold-dev/tezos-node-bootstrap:${{ github.sha }}
