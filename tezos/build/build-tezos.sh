@@ -21,5 +21,5 @@ source "$HOME/.cargo/env"
 opam init --bare --disable-sandboxing
 make build-deps
 eval "$(opam env)" && PROFILE="$profile" make build
-chmod +w tezos-*
+chmod +x tezos-*
 cp tezos-* /bin/

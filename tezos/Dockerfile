@@ -13,3 +13,4 @@ ARG PROFILE=dev
 COPY ./build/build-tezos.sh /build-tezos.sh
 RUN chmod +x /build-tezos.sh
 RUN /build-tezos.sh ${VERSION} ${PROFILE}
+USER tezos
