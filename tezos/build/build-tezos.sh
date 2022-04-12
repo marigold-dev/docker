@@ -4,8 +4,9 @@ set -euo pipefail
 
 version="$1"
 profile="$2"
+repository="$3"
 
-git clone https://gitlab.com/tezos/tezos.git 
+git clone $repository
 cd tezos
 git checkout $version
 

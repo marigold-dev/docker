@@ -3,6 +3,10 @@ name: Tezos Docker CI
 on:
   workflow_dispatch:
     inputs:
+      repository:
+        required: true
+        default: 'https://gitlab.com/tezos/tezos.git'
+        description: 'https://gitlab.com/tezos/tezos.git | https://gitlab.com/marigold/tezos.git'
       profile:
         required: true
         default: 'dev'
@@ -38,6 +42,7 @@ jobs:
           build-args: |
             PROFILE=${{ github.event.inputs.profile }}
             VERSION=${{ github.event.inputs.version }}
+            REPOSITORY=${{ github.event.inputs.repository }}
           push: true
           tags: |
             ghcr.io/marigold-dev/tezos:${{ github.event.inputs.profile }}-${{ github.event.inputs.version }}-latest

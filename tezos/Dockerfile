@@ -10,7 +10,7 @@ RUN /build-libusb-and-hidapi.sh
 
 ARG VERSION=master
 ARG PROFILE=dev
+ARG REPOSITORY=https://gitlab.com/tezos/tezos.git
 COPY ./build/build-tezos.sh /build-tezos.sh
 RUN chmod +x /build-tezos.sh
-RUN /build-tezos.sh ${VERSION} ${PROFILE}
-USER tezos
+RUN /build-tezos.sh ${VERSION} ${PROFILE} ${REPOSITORY}
