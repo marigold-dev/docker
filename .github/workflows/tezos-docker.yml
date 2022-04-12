@@ -35,11 +35,9 @@ jobs:
         with:
           context: ./tezos
           platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           build-args: |
             PROFILE=${{ github.event.inputs.profile }}
-            TEZOS_VERSION=${{ github.event.inputs.version }}
+            VERSION=${{ github.event.inputs.version }}
           push: true
           tags: |
             ghcr.io/marigold-dev/tezos:${{ github.event.inputs.profile }}-${{ github.event.inputs.version }}-latest
