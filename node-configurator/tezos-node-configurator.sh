@@ -10,6 +10,12 @@ client_dir="$data_dir/client"
 node="$bin_dir/tezos-node"
 node_data_dir="$node_dir/data"
 
+# If is a obj remove double quotes
+network=\"$TEZOS_NETWORK\"
+if [[ "$TEZOS_NETWORK" =~ ^{.* ]]; then
+    network=$TEZOS_NETWORK
+fi
+
 echo "Writing custom configuration for public node\n"
 # why hard-code this file ?
 # Reason 1: we could regenerate it from scratch with cli but it requires doing tezos-node config init or tezos-node config reset, depending on whether this file is already here
@@ -19,7 +25,7 @@ rm -rvf ${node_dir}/data/config.json
 mkdir -p ${node_dir}/data
 cat << EOF > ${node_dir}/data/config.json
 { "data-dir": "/var/run/tezos/node/data",
-  "network": "$TEZOS_NETWORK",
+  "network": $network,
   "rpc":
     {
       "listen-addrs": [ ":8732", "0.0.0.0:8732" ],
