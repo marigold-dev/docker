@@ -10,11 +10,12 @@ client_dir="$data_dir/client"
 node="$bin_dir/tezos-node"
 node_data_dir="$node_dir/data"
 
-# If is a obj remove double quotes
+# Network as a link should be converted to a json object
 network=\"$TEZOS_NETWORK\"
-if [[ "$TEZOS_NETWORK" =~ ^{.* ]]; then
-    network=$TEZOS_NETWORK
+if [[ "$TEZOS_NETWORK" =~ ^http.* ]]; then
+    network=$(wget -qO- $TEZOS_NETWORK)
 fi
+echo $network
 
 echo "Writing custom configuration for public node\n"
 # why hard-code this file ?
