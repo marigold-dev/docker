@@ -29,7 +29,7 @@ cat << EOF > ${node_dir}/data/config.json
   "network": $network,
   "rpc":
     {
-      "listen-addrs": [ ":8732", "0.0.0.0:8732" ],
+      "listen-addrs": [ "0.0.0.0:8732", ":8732" ],
       "cors-origin": [
           "*"
       ],
