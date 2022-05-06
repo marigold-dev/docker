@@ -9,6 +9,7 @@ on:
       - 'node-bootstrap/**'
       - 'node-configurator/**'
       - 'snapshot-downloader/**'
+      - 'fluentd-loki/**'
   pull_request:
 
 jobs:
@@ -69,3 +70,17 @@ jobs:
           tags: |
             ghcr.io/marigold-dev/tezos-node-bootstrap:latest
             ghcr.io/marigold-dev/tezos-node-bootstrap:${{ github.sha }}
+
+      - name: Build and push fluentd loki
+        id: docker_build_fluentd_loki
+        uses: docker/build-push-action@v2
+        with:
+          context: ./fluentd-loki
+          platforms: linux/amd64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # Only push if on main branch
+          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+          tags: |
+            ghcr.io/marigold-dev/fluentd-loki:latest
+            ghcr.io/marigold-dev/fluentd-loki:${{ github.sha }}
