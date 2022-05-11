@@ -47,7 +47,7 @@ cat << EOF > ${node_dir}/data/config.json
             "GET /config/**",
             "GET /chains/main/blocks/*/helpers/baking_rights",
             "GET /chains/main/blocks/*/helpers/endorsing_rights",
-            "GET /helpers/baking_rights"
+            "GET /helpers/baking_rights",
             "GET /helpers/endorsing_rights"
           ] }
         ]
