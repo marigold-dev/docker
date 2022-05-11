@@ -29,7 +29,7 @@ cat << EOF > ${node_dir}/data/config.json
   "network": $network,
   "rpc":
     {
-      "listen-addrs": [ "0.0.0.0:8732", ":8732" ],
+      "listen-addrs": [ "0.0.0.0:8732" ],
       "cors-origin": [
           "*"
       ],
@@ -37,8 +37,7 @@ cat << EOF > ${node_dir}/data/config.json
           "Content-Type"
       ],
       "acl":
-        [ { "address": ":8732", "blacklist": [] },
-          { "address": "0.0.0.0:8732", "blacklist": [
+        [ { "address": "0.0.0.0:8732", "blacklist": [
             "POST /injection/block",
             "POST /injection/protocol",
             "GET /network/**",
@@ -46,9 +45,11 @@ cat << EOF > ${node_dir}/data/config.json
             "GET /worker/**",
             "GET /stats/**",
             "GET /config/**",
-            "GET /chains/main/blocks/[0-9A-Za-z]+/helpers/(baking|endorsing)_rights",
-            "GET /helpers/(baking|endorsing)_rights"
-          ] } 
+            "GET /chains/main/blocks/*/helpers/baking_rights",
+            "GET /chains/main/blocks/*/helpers/endorsing_rights",
+            "GET /helpers/baking_rights"
+            "GET /helpers/endorsing_rights"
+          ] }
         ]
     },
   "p2p":
