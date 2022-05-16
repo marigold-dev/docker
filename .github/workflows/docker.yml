@@ -5,10 +5,8 @@ on:
     branches:
       - "main"
     paths:
-      - 'deku/**'
-      - 'node-configurator/**'
-      - 'snapshot-downloader/**'
-      - 'fluentd-loki/**'
+      - "deku/**"
+      - "fluentd-loki/**"
   pull_request:
   workflow_dispatch:
 
@@ -28,34 +26,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push node configurator
-        id: docker_build_node_conf
-        uses: docker/build-push-action@v2
-        with:
-          context: ./node-configurator
-          platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          # Only push if on main branch
-          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-          tags: |
-            ghcr.io/marigold-dev/tezos-node-configurator:latest
-            ghcr.io/marigold-dev/tezos-node-configurator:${{ github.sha }}
-
-      - name: Build and push snapshot downloader
-        id: docker_build_snapshot_dl
-        uses: docker/build-push-action@v2
-        with:
-          context: ./snapshot-downloader
-          platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          # Only push if on main branch
-          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-          tags: |
-            ghcr.io/marigold-dev/tezos-snapshot-downloader:latest
-            ghcr.io/marigold-dev/tezos-snapshot-downloader:${{ github.sha }}
 
       - name: Build and push fluentd loki
         id: docker_build_fluentd_loki
