@@ -7,9 +7,9 @@ profile="$2"
 repository="$3"
 build="$4"
 
-git clone $repository
+git clone -b $version --single-branch $repository
 cd tezos
-git checkout $version
+# git checkout $version
 
 export OPAMYES="true"
 # Disable usage of instructions from the ADX extension to avoid incompatibility
