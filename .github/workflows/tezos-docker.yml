@@ -15,6 +15,10 @@ on:
         required: true
         default: 'master'
         description: 'commit or branch from Tezos'
+      build:
+        required: true
+        default: 'build'
+        description: 'build | build-unreleased'
 
 jobs:
   docker:
@@ -43,8 +47,9 @@ jobs:
             PROFILE=${{ github.event.inputs.profile }}
             VERSION=${{ github.event.inputs.version }}
             REPOSITORY=${{ github.event.inputs.repository }}
+            BUILD=${{ github.event.inputs.build }}
           push: true
           tags: |
-            ghcr.io/marigold-dev/tezos:${{ github.event.inputs.profile }}-${{ github.event.inputs.version }}-latest
+            ghcr.io/marigold-dev/tezos:${{ github.event.inputs.profile }}-${{ github.event.inputs.version }}-${{ github.event.inputs.build }}-latest
             ghcr.io/marigold-dev/tezos:${{ github.sha }}
 

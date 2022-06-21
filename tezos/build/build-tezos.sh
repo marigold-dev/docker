@@ -5,6 +5,7 @@ set -euo pipefail
 version="$1"
 profile="$2"
 repository="$3"
+build="$4"
 
 git clone $repository
 cd tezos
@@ -21,6 +22,6 @@ source "$HOME/.cargo/env"
 
 opam init --bare --disable-sandboxing
 make build-deps
-eval "$(opam env)" && PROFILE="$profile" make build
+eval "$(opam env)" && PROFILE="$profile" make $build
 chmod +x tezos-*
 cp tezos-* /bin/
